@@ -45,10 +45,6 @@ jobs:
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
           df -h
-      - name: Make download
-        run: |
-          make download -j8
-          find dl -size -1024c -exec rm -f {} \;
       - name: Compile firmware
         run: |
           ./compile.sh
