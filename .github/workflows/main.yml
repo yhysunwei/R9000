@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: OpenWrt-CI
+name: R9000
 
 on:
   push:
@@ -45,17 +45,13 @@ jobs:
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
           df -h
-      - name: Update feeds
-        run: |
-          ./scripts/feeds update -a
-          ./scripts/feeds install -a
       - name: Make download
         run: |
           make download -j8
           find dl -size -1024c -exec rm -f {} \;
       - name: Compile firmware
         run: |
-          make -j$(nproc) || make -j1 V=s
+          ./compile.sh
           echo "======================="
           echo "Space usage:"
           echo "======================="
